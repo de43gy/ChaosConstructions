@@ -1,23 +1,21 @@
 package engine;
-//java packages
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-//game packages
-import screens.OuterSpace;
-import enter.DeadlyFight;
 
-public class SpaceEngine implements MouseListener, MouseMotionListener{
+import windows.MainWindow;
+
+public class GameEngine implements MouseListener, MouseMotionListener{
 	
-	DeadlyFight deadlyFight;
-	OuterSpace space;
+	MainWindow mainWindow;
 	static int xOld =0;
 	static int xNew =0;
 	static int xBuffer =250;
+	static boolean mouseOn =false;
 	
-	public SpaceEngine(OuterSpace space, DeadlyFight deadlyFight){
-		this.space =space;
-		this.deadlyFight =deadlyFight;
+	public GameEngine(MainWindow mainWindow){
+		this.mainWindow = mainWindow;
 	}
 
 	@Override
@@ -28,6 +26,7 @@ public class SpaceEngine implements MouseListener, MouseMotionListener{
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
+		//mainWindow.setTextToField(e.getX() + " " + e.getY());
 		xNew=e.getX();
 			
 	}
@@ -40,34 +39,45 @@ public class SpaceEngine implements MouseListener, MouseMotionListener{
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
-		deadlyFight.setPauseOff();
-
+		mouseOn =true;
+		/*
+		if (xOld!=0){
+			if (xNew>xOld){
+				mainWindow.setRightX();
+				xOld=xNew;
+			}else{
+				mainWindow.setLeftX();
+				xOld=xNew;
+			}
+		}else{
+			xOld=xNew;
+		}
+		*/
 	}
 
 	@Override
 	public void mouseExited(MouseEvent arg0) {
-		deadlyFight.setPauseOn();
+		mouseOn =false;
+		
 	}
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		System.out.println(arg0);
+		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		System.out.println(arg0);
 		
 	}
 	
-	public void getMouseOn(){
-		deadlyFight.setPauseOff();
+	public boolean getMouseOn(){
+		return mouseOn;
 	}
 	
 	public int getMouseXPosition(){
-		
 		return xNew;
 	}
 

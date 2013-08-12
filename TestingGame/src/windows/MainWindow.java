@@ -1,11 +1,14 @@
-package screens;
+package windows;
 
 
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Polygon;
+import java.awt.geom.GeneralPath;
+import java.awt.image.BufferedImage;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -13,29 +16,31 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
-import javax.swing.plaf.ColorUIResource;
 
-import engine.SpaceEngine;
-import engine.Constants;
-import enter.DeadlyFight;
+import engine.GameEngine;
+import engine.TimeCounter;
 
-public class OuterSpace extends JPanel implements Constants{
-	//player ship
-	protected Polygon playerShip;
-	protected int centerOfShip =(int)(SPACE_WIDTH/2);
-	protected int [] hullX = { centerOfShip-10, centerOfShip-5, centerOfShip-1, centerOfShip+1, centerOfShip+5, centerOfShip+10, centerOfShip+1, centerOfShip-1};
+public class MainWindow extends JPanel implements Runnable{
+	
+	protected int windowWidth =500;
+	protected int windowHeigth =500;
+	//repaint x
+	protected int centerOfShip =250;
+	int [] hullX = { centerOfShip-10, centerOfShip-5, centerOfShip-1, centerOfShip+1, centerOfShip+5, centerOfShip+10, centerOfShip+1, centerOfShip-1};
 	protected int cockpitX =centerOfShip-8;
-	protected int [] rightWingX = {centerOfShip-10, centerOfShip-20, centerOfShip-60, centerOfShip-60, centerOfShip-15, centerOfShip-6};
-	protected int [] leftWingX = { centerOfShip+9, centerOfShip+19, centerOfShip+59, centerOfShip+59, centerOfShip+14, centerOfShip+6};
-	//Enemies ship
-	protected int enemyCenterX;
-	protected int enemyCenterY;
-	protected int [] enemyShipX = new int [4]; // = { enemyCenterX-10, enemyCenterX+10, enemyCenterX+10, enemyCenterX-10};
-	protected int [] enemyShipY = { enemyCenterY+10, enemyCenterY+10, enemyCenterY-10, enemyCenterY-10};
-	protected Polygon[] enemiesEscadra;
-	protected int level =3;
-	protected int enemiesNum =0;
-	protected int count =0;
+	//int [] rightWingX = {240, 230, 190, 190, 235, 244};
+	int [] rightWingX = {centerOfShip-10, centerOfShip-20, centerOfShip-60, centerOfShip-60, centerOfShip-15, centerOfShip-6};
+	//int [] leftWingX = { 259, 269, 309, 309, 264, 256};
+	int [] leftWingX = { centerOfShip+9, centerOfShip+19, centerOfShip+59, centerOfShip+59, centerOfShip+14, centerOfShip+6};
+	//enemy
+	int enemyCenterX;
+	int enemyCenterY;
+	int [] enemyShipX = new int [4]; // = { enemyCenterX-10, enemyCenterX+10, enemyCenterX+10, enemyCenterX-10};
+	int [] enemyShipY = { enemyCenterY+10, enemyCenterY+10, enemyCenterY-10, enemyCenterY-10};
+	Polygon[] enemiesEscadra;
+	int level =3;
+	int enemiesNum =0;
+	int count =0;
 	
 	
 	protected int speed=2;
@@ -45,20 +50,18 @@ public class OuterSpace extends JPanel implements Constants{
 	protected JFrame frame;
 
 	protected Container container;
-	SpaceEngine engine;
-	Graphics graphics;
-	DeadlyFight deadlyFight;
+	GameEngine engine;
+	TimeCounter counter;
 
-	protected Dimension preferredSize = new Dimension(SPACE_WIDTH, SPACE_HEIGHT);
-	
-	//constructor
+	protected Dimension preferredSize = new Dimension(500, 500);
 	public Dimension getPreferredSize(){
 		return preferredSize;
 	}
 
-	public OuterSpace(DeadlyFight deadlyFight){
-		this.deadlyFight =deadlyFight;
-		engine = new SpaceEngine(this, deadlyFight);
+	public MainWindow(TimeCounter counter){
+		
+		engine = new GameEngine(this);
+		this.counter =counter;
 		addMouseListener(engine);
 		addMouseMotionListener(engine);
 		JFrame frame = new JFrame("Test window");
@@ -69,7 +72,7 @@ public class OuterSpace extends JPanel implements Constants{
 		frame.setVisible(true);
 	}
 	
-	public SpaceEngine getEngine(){
+	public GameEngine getEngine(){
 		return engine;
 	}
 
@@ -124,13 +127,11 @@ public class OuterSpace extends JPanel implements Constants{
 			while(d<enemiesNum){
 			g.fillPolygon(enemiesEscadra[d]);
 			d++;
+			
 			}
-		if (playerShip!=null){
-			g.setColor(Color.BLUE);
-			g.fillPolygon(playerShip);
 		}
+	
 		
-		}
 	}
 
 	public void setTextToField(String s){
@@ -229,9 +230,13 @@ public class OuterSpace extends JPanel implements Constants{
 			count++;
 		}
 		
+
+	}
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
 	}
 	
-	public void placeNewShips(Polygon p){
-		playerShip =p;
-	}
+	
 }
