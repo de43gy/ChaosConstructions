@@ -32,7 +32,6 @@ public class DeadlyFight {
 		
 	}
 	public void startTime(){
-		space.enemyShipValidatorX();
 		playerShip =new PlayerShip();
 		space.placeNewShips(playerShip.getShip());
 		while (gamePause) {
@@ -45,18 +44,9 @@ public class DeadlyFight {
 			}
 			//game cycle
 			xPositionNew =engine.getMouseXPosition();
-			if (xPositionNew>xPositionCentr){
-				xPositionCentr+=xSpeed;
-				space.setRightX(xPositionCentr);
-				xPositionNew =engine.getMouseXPosition();				
-			}else if(xPositionNew<xPositionCentr){
-					xPositionCentr-=xSpeed;
-					space.setRightX(xPositionCentr);
-					xPositionNew =engine.getMouseXPosition();
-			}else{
-				xPositionNew =engine.getMouseXPosition();
-				space.setRightX(xPositionCentr);
-			}
+			playerShip.setNewPosition(xPositionNew);
+			space.repaint();
+			//space.repaintAll();
 			counter+=denominator;
 		}
 	}

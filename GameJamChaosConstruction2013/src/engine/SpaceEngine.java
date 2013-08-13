@@ -40,13 +40,13 @@ public class SpaceEngine implements MouseListener, MouseMotionListener{
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
-		deadlyFight.setPauseOff();
+		//deadlyFight.setPauseOff();
 
 	}
 
 	@Override
 	public void mouseExited(MouseEvent arg0) {
-		deadlyFight.setPauseOn();
+		//deadlyFight.setPauseOn();
 	}
 
 	@Override
