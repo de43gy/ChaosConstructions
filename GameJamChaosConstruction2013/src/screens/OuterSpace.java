@@ -21,15 +21,15 @@ import enter.DeadlyFight;
 
 public class OuterSpace extends JPanel implements Constants{
 	
-	protected JTextField textField;
-	protected JPanel panel;
-	protected JFrame frame;
-	protected Container container;
-	protected SpaceEngine engine;
-	protected Graphics graphics;
-	protected DeadlyFight deadlyFight;
-	protected Dimension preferredSize;
-	protected Polygon playerShip;
+	private JTextField textField;
+	private JPanel panel;
+	private JFrame frame;
+	private Container container;
+	private SpaceEngine engine;
+	private Graphics graphics;
+	private DeadlyFight deadlyFight;
+	private Dimension preferredSize;
+	private Polygon playerShip;
 	
 	//constructor
 	public OuterSpace(DeadlyFight deadlyFight){
@@ -38,9 +38,8 @@ public class OuterSpace extends JPanel implements Constants{
 		engine = new SpaceEngine(this, deadlyFight);
 		addMouseListener(engine);
 		addMouseMotionListener(engine);
-		JFrame frame = new JFrame("Test window");
+		frame = new JFrame("Test window");
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-	
 		this.addPanelToFrame(frame.getContentPane());
 		frame.pack();
 		frame.setVisible(true);
@@ -78,7 +77,6 @@ public class OuterSpace extends JPanel implements Constants{
 		 */
 		if (playerShip!=null){
 			g.setColor(Color.BLUE);
-			System.out.println("in OuterSpace: 0=" + playerShip.xpoints[0] + ", 1=" + playerShip.xpoints[1] + ", 2=" +playerShip.xpoints[2]);
 			g.fillPolygon(playerShip);
 		}
 		

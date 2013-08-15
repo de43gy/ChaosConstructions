@@ -1,16 +1,18 @@
-package engine;
+package gameobject;
 
 import java.awt.Polygon;
 
-public class PlayerShip implements Constants {
-	protected int playerShipH =15; //Height ship
-	protected int playerShipW =10; //Width ship
-	protected int startPosicionY; 
-	protected int startPosicionX;
-	protected int centerX;
-	protected int [] playerShipY;
-	protected int [] playerShipX;
-	protected Polygon playersPolygon;
+import engine.Constants;
+
+public class PlayerShip extends SpaceShip implements Constants {
+	private int playerShipH =15; //Height ship
+	private int playerShipW =10; //Width ship
+	private int startPosicionY; 
+	private int startPosicionX;
+	private int centerX;
+	private int [] playerShipY;
+	private int [] playerShipX;
+	private Polygon playersPolygon;
 
 	public PlayerShip(){
 		startPosicionY =SPACE_HEIGHT-(10+playerShipH);
@@ -31,12 +33,10 @@ public class PlayerShip implements Constants {
 		return playersPolygon;
 	}
 	
-	protected void moveToX(){
-		System.out.println("in PlayerShip(before): 0=" + playersPolygon.xpoints[0] + ", 1=" + playersPolygon.xpoints[1] + ", 2=" +playersPolygon.xpoints[2]);
+	private void moveToX(){
 		playersPolygon.xpoints[0] =centerX;
 		playersPolygon.xpoints[1] =centerX+playerShipW/2;
-		playersPolygon.xpoints[2] =centerX+playerShipW/2;
-		System.out.println("in PlayerShip(after): 0=" + playersPolygon.xpoints[0] + ", 1=" + playersPolygon.xpoints[1] + ", 2=" +playersPolygon.xpoints[2]);
+		playersPolygon.xpoints[2] =centerX-playerShipW/2;
 	}
 	
 	public void setNewPosition(int x){
